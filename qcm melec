@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>QCM Histoire Géographie</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 10px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+        h1 {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 24px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .question {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        .question h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #1e40af;
+        }
+        .question p {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        label {
+            display: block;
+            margin: 10px 0;
+            padding: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.2s;
+        }
+        label:hover {
+            border-color: #1e40af;
+            background: #eff6ff;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        button {
+            display: block;
+            width: 100%;
+            margin: 15px auto 0;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #1e40af;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #1e3a8a;
+        }
+        #resultat {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .bonne {
+            color: #10b981;
+        }
+        .mauvaise {
+            color: #ef4444;
+        }
+        .reponseBonne {
+            color: #10b981;
+            font-weight: 600;
+            font-size: 15px;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 8px;
+            border-radius: 6px;
+            margin: 8px 0;
+        }
+        .reponseFausse {
+            color: #ef4444;
+            font-weight: 600;
+            font-size: 15px;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 8px;
+            border-radius: 6px;
+            margin: 8px 0;
+        }
+        .signature {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>QCM Histoire-Géo</h1>
+        <div id="quiz"></div>
+        <div id="boutonZone"></div>
+        <div id="resultat"></div>
+    </div>
+    <div class="signature">
+        Axel manges mes boules
+    </div>
+    <script>
+        const toutesLesQuestions = [
+            {
+                question: "Que provoque l’augmentation des besoins en ressources ?",
+                options: ["Une diminution de la population", "Leur raréfaction", "Une baisse des températures"],
+                bonne: 1
+            },
+            {
+                question: "Quel phénomène accentue la faim dans le monde ?",
+                options: ["Le réchauffement climatique", "Le tourisme", "Les transports"],
+                bonne: 0
+            },
+            {
+                question: "Le développement durable repose sur :",
+                options: ["L’économie uniquement", "L’environnement uniquement", "L’économie, le social et l’environnement"],
+                bonne: 2
+            },
+            {
+                question: "Quel est un exemple de ressource énergétique renouvelable ?",
+                options: ["Le pétrole", "Le charbon", "Le vent"],
+                bonne: 2
+            },
+            {
+                question: "Un risque est :",
+                options: ["Une catastrophe uniquement", "La combinaison d’un aléa et d’un enjeu", "Une pollution"],
+                bonne: 1
+            },
+            {
+                question: "Quel est un risque naturel géophysique ?",
+                options: ["Un cyclone", "Un séisme", "Une épidémie"],
+                bonne: 1
+            },
+            {
+                question: "Quel régime collabore avec les nazis ?",
+                options: ["La République", "Le régime de Vichy", "L’ONU"],
+                bonne: 1
+            },
+            {
+                question: "Qui dirige la Résistance depuis Londres ?",
+                options: ["Jean Moulin", "Charles de Gaulle", "Napoléon"],
+                bonne: 1
+            },
+            {
+                question: "Quel plan aide à reconstruire l’Europe après la guerre ?",
+                options: ["Le plan Marshall", "Le COMECON", "Le Pacte de Varsovie"],
+                bonne: 0
+            },
+            {
+                question: "En quelle année débute la Guerre froide ?",
+                options: ["1939", "1945", "1947"],
+                bonne: 2
+            },
+            {
+                question: "Quel mur tombe en 1989 ?",
+                options: ["Le mur de Chine", "Le mur de Berlin", "Le mur d’Hadrien"],
+                bonne: 1
+            },
+            {
+                question: "Quel pays entre à l’ONU en 1971 ?",
+                options: ["Le Japon", "La Chine", "L’Inde"],
+                bonne: 1
+            },
+            {
+                question: "Que signifie OMS ?",
+                options: ["Organisation Mondiale de la Santé", "Organisation Militaire de Sécurité", "Office Mondial Sanitaire"],
+                bonne: 0
+            },
+            {
+                question: "Quel événement a eu lieu à Tchernobyl ?",
+                options: ["Un séisme", "Une explosion nucléaire", "Une guerre"],
+                bonne: 1
+            },
+            {
+                question: "Que signifie vulnérabilité ?",
+                options: ["La richesse d’un pays", "La fragilité face à un danger", "Une catastrophe naturelle"],
+                bonne: 1
+            },
+            {
+                question: "Qui a un plus gros teub ?",
+                options: ["Vasco", "Enzo", "Axel"],
+                bonne: 0
+            }
+        ];
+        let questions = [];
+        let indexQuestion = 0;
+        let score = 0;
+        function melangerTableau(tableau) {
+            return tableau.sort(() => Math.random() - 0.5);
+        }
+        function demarrerQuiz() {
+            questions = melangerTableau([...toutesLesQuestions]).slice(0, 10);
+            indexQuestion = 0;
+            score = 0;
+            document.getElementById("resultat").innerHTML = "";
+            afficherQuestion();
+        }
+        function afficherQuestion() {
+            const quiz = document.getElementById("quiz");
+            const boutonZone = document.getElementById("boutonZone");
+            const q = questions[indexQuestion];
+            let html = `
+                <div class="question">
+                    <h2>Question ${indexQuestion + 1} / ${questions.length}</h2>
+                    <p>${q.question}</p>
+            `;
+            q.options.forEach((option, i) => {
+                html += `
+                    <label>
+                        <input type="radio" name="reponse" value="${i}">
+                        ${option}
+                    </label>
+                `;
+            });
+            html += `</div>`;
+            quiz.innerHTML = html;
+            boutonZone.innerHTML = `<button onclick="validerReponse()">Valider</button>`;
+        }
+        function validerReponse() {
+            const choix = document.querySelector('input[name="reponse"]:checked');
+            if (!choix) {
+                alert("Veuillez sélectionner une réponse !");
+                return;
+            }
+            const valeur = parseInt(choix.value);
+            const q = questions[indexQuestion];
+            if (valeur === q.bonne) {
+                score++;
+            }
+            afficherCorrection(valeur);
+        }
+        function afficherCorrection(reponseUtilisateur) {
+            const quiz = document.getElementById("quiz");
+            const boutonZone = document.getElementById("boutonZone");
+            const q = questions[indexQuestion];
+            let html = `
+                <div class="question">
+                    <h2>Correction</h2>
+                    <p>${q.question}</p>
+            `;
+            q.options.forEach((option, i) => {
+                if (i === q.bonne) {
+                    html += `<p class="reponseBonne">✅ ${option}</p>`;
+                } else if (i === reponseUtilisateur) {
+                    html += `<p class="reponseFausse">❌ ${option}</p>`;
+                } else {
+                    html += `<p>${option}</p>`;
+                }
+            });
+            html += `</div>`;
+            quiz.innerHTML = html;
+            if (indexQuestion < questions.length - 1) {
+                boutonZone.innerHTML = `<button onclick="questionSuivante()">Suivant</button>`;
+            } else {
+                boutonZone.innerHTML = `<button onclick="afficherResultat()">Voir le résultat</button>`;
+            }
+        }
+        function questionSuivante() {
+            indexQuestion++;
+            afficherQuestion();
+        }
+        function afficherResultat() {
+            document.getElementById("quiz").innerHTML = "";
+            document.getElementById("boutonZone").innerHTML = `<button onclick="demarrerQuiz()">Recommencer</button>`;
+            const resultat = document.getElementById("resultat");
+            resultat.innerHTML = `Score : ${score} / ${questions.length}`;
+            resultat.className = score >= 7 ? "bonne" : "mauvaise";
+        }
+        demarrerQuiz();
+    </script>
+</body>
+</html>
